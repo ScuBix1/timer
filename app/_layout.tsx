@@ -9,8 +9,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import 'react-native-reanimated';
+import { TimerProvider } from '../context/TimerContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,17 +31,26 @@ export default function RootLayout() {
     return null;
   }
 
-  const styles = StyleSheet.create({});
-
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <ExerciseProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        />
-        <StatusBar style='auto' />
+        <TimerProvider>
+          <Stack
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#000',
+              },
+              headerShown: false,
+              headerTintColor: '#000',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              navigationBarHidden: true,
+              statusBarHidden: true,
+            }}
+          />
+          <StatusBar style='auto' />
+        </TimerProvider>
       </ExerciseProvider>
     </ThemeProvider>
   );

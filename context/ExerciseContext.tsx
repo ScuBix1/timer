@@ -21,8 +21,6 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
   const [round, setRound] = useState<number>(0);
   const [name, setName] = useState<string>('');
 
-  console.log(duration, rest);
-
   return (
     <ExerciseContext.Provider
       value={{
@@ -44,7 +42,7 @@ export const ExerciseProvider = ({ children }: { children: ReactNode }) => {
 export const useExercise = () => {
   const context = useContext(ExerciseContext);
   if (!context) {
-    throw new Error('useExercise must be used within an ExerciseProvider');
+    throw new Error('Il faut utiliser le contexte ExerciseProvider');
   }
   return context;
 };
