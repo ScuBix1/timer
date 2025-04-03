@@ -1,74 +1,54 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import Title from '@/components/atoms/Title/Title';
+import ExerciseCard from '@/components/molecules/ExerciseCard/ExerciseCard';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function Index() {
+  const styles = StyleSheet.create({
+    layout: { marginVertical: 'auto' },
+    card: { marginHorizontal: 'auto', gap: 20 },
+  });
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView style={styles.layout}>
+      <View style={styles.card}>
+        <Title text='Cliquez sur un chrono prédéfinis' />
+        <ExerciseCard
+          title='Force'
+          description='Efforts courts avec de longues phases de récupération pour maximiser la performance musculaire.'
+          durationInSecond={8}
+          restInSecond={90}
+          style={{
+            marginHorizontal: 10,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+            borderRadius: 10,
+          }}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <ExerciseCard
+          title='Explosivité'
+          description=' On vise des mouvements rapides et intenses, souvent utilisés dans les sports de vitesse ou de puissance.'
+          durationInSecond={15}
+          restInSecond={45}
+          style={{
+            marginHorizontal: 10,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+            borderRadius: 10,
+          }}
+        />
+        <ExerciseCard
+          title='Endurance'
+          description='Séries modérées à longues avec des charges intermédiaires, dans le but de stimuler la croissance musculaire.'
+          durationInSecond={60}
+          restInSecond={40}
+          style={{
+            marginHorizontal: 10,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+            borderRadius: 10,
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

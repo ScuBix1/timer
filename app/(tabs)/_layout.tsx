@@ -1,45 +1,75 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
+import Icon from '@/components/ui/Icon';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { faHome, faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { Tabs } from 'expo-router';
+import { Platform, useColorScheme } from 'react-native';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function NavBar() {
+  const theme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[theme ?? 'light'].tint,
+          headerShown: true,
+          tabBarStyle: Platform.select({
+            ios: {
+              position: 'absolute',
+            },
+            default: {},
+          }),
+          tabBarLabelStyle: {
+            fontSize: 14,
+            color:
+              theme === 'dark'
+                ? DarkTheme.colors.text
+                : DefaultTheme.colors.text,
+            fontWeight: 'bold',
+            fontFamily: 'SpaceMono',
           },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name='index'
+          options={{
+            title: 'Accueil',
+            tabBarIcon: () => {
+              return (
+                <Icon
+                  icon={faHome}
+                  size={25}
+                  color={
+                    theme !== 'dark'
+                      ? DefaultTheme.colors.text
+                      : DarkTheme.colors.text
+                  }
+                />
+              );
+            },
+          }}
+        />
+        <Tabs.Screen
+          name='chrono/index'
+          options={{
+            title: 'Chronomètre',
+            tabBarIcon: () => {
+              return (
+                <Icon
+                  icon={faStopwatch}
+                  size={25}
+                  color={
+                    theme !== 'dark'
+                      ? DefaultTheme.colors.text
+                      : DarkTheme.colors.text
+                  }
+                />
+              );
+            },
+          }}
+        />
+      </Tabs>
+    </>
   );
 }
